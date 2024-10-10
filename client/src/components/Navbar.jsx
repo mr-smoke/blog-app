@@ -64,7 +64,7 @@ const Navbar = () => {
           )}
         </span>
         <Link className="" to="/write">
-          <p className="hidden md:flex bg-violet-700 rounded-full w-20 h-20 items-center justify-center text-white hover:bg-white hover:text-violet-700 hover:border">
+          <p className="hidden md:flex bg-violet-700 rounded-full w-20 h-20 items-center justify-center text-white hover:bg-white hover:text-violet-700 hover:border transition-colors">
             Write
           </p>
         </Link>
@@ -74,50 +74,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-{
-  /* <nav className="flex items-center justify-between py-3 font-mono text-2xl px-3 lg:px-0">
-  <Link to="/">
-    <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-violet-700 relative inline-block">
-      <h1 className="flex items-center gap-1 text-3xl relative text-white">
-        <FaBloggerB className="relative" />
-        Blogger
-      </h1>
-    </span>
-  </Link>
-  <div className="flex flex-col w-44 md:w-auto h-screen md:h-auto md:flex-row items-end md:items-center md:flex-1 fixed md:relative top-0 right-0 flex-none bg-white z-10 gap-8 p-3 md:p-0">
-    <div className="md:hidden">
-      <MdDehaze size={30} />
-    </div>
-    <div className="flex flex-col md:flex-row flex-none md:flex-1 justify-center gap-5 items-end">
-      <Link to="/art">
-        <p className="before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-300 hover:before:translate-x-0 hover:before:opacity-100">
-          Art
-        </p>
-      </Link>
-      <Link to="/science">
-        <p className="before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-500 hover:before:translate-x-0 hover:before:opacity-100">
-          Science
-        </p>
-      </Link>
-    </div>
-    <div className="flex flex-col md:flex-row items-center gap-5 md:font-semibold">
-      <span>{currentUser}</span>
-      {currentUser ? (
-        <Link to="/logout">
-          <p>Logout</p>
-        </Link>
-      ) : (
-        <Link to="/login">
-          <p>Login</p>
-        </Link>
-      )}
-      <Link to="/write">
-        <p className="bg-violet-700 rounded-full w-20 h-20 flex items-center justify-center text-white hover:bg-white hover:text-violet-700 hover:border">
-          Write
-        </p>
-      </Link>
-    </div>
-  </div>
-  </nav> */
-}
