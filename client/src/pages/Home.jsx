@@ -1,8 +1,9 @@
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
-    <div className="max-w-[1040px] mx-auto">
+    <div className="max-w-[1040px] mx-auto min-h-screen relative">
       <Navbar />
       <main className="flex flex-col">
         <section className="flex flex-col md:flex-row pb-16 md:py-16">
@@ -32,6 +33,7 @@ const Home = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };
