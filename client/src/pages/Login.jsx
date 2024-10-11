@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 const Login = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
   return (
     <main className="flex items-center justify-center h-screen bg">
       <div className="border rounded-xl flex flex-col gap-3 py-16 p-8 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-0 text-white xl:w-1/4">
