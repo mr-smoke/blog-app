@@ -1,10 +1,6 @@
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-
 const AddPost = () => {
   return (
-    <div className="max-w-[1040px] mx-auto min-h-screen relative">
-      <Navbar />
+    <>
       <h1 className="text-4xl font-bold pb-5">Add Post</h1>
       <main className="flex">
         <section className="w-3/4 px-3 flex flex-col gap-5">
@@ -51,8 +47,7 @@ const AddPost = () => {
           </div>
         </section>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 };
 
