@@ -1,10 +1,11 @@
 import express from "express";
 import authRoutes from "./routes/auth.route.js";
-import userRoutes from "./routes/user.route.js";
 import blogRoutes from "./routes/blog.route.js";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -12,7 +13,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
 app.use("/api/blog", blogRoutes);
 
 app.listen(3000, () => {

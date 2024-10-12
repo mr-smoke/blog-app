@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaFemale, FaMale } from "react-icons/fa";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -9,6 +11,20 @@ const Signup = () => {
     confirmPassword: "",
     gender: "",
   });
+
+  const signupHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        form
+      );
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response.data);
+      console.error(error);
+    }
+  };
 
   return (
     <main className="flex items-center justify-center h-screen bg">
@@ -33,7 +49,7 @@ const Signup = () => {
               className="border rounded-lg p-3 text-black"
               type="text"
               id="username"
-              maxLength={20}
+              maxLength={45}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
           </div>
@@ -101,6 +117,7 @@ const Signup = () => {
             <button
               className="border rounded-xl py-3 px-5 w-max hover:opacity-70"
               type="submit"
+              onClick={signupHandler}
             >
               Signup
             </button>

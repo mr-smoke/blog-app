@@ -5,7 +5,7 @@ import { MdClose, MdDehaze } from "react-icons/md";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const currentUser = "name";
+  const currentUser = undefined;
 
   return (
     <nav className="flex items-center justify-between py-3 font-mono text-2xl px-3 lg:px-0">
