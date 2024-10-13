@@ -12,7 +12,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/auth/login", form);
-      toast.success(response.data);
     } catch (error) {
       toast.error(error.response.data);
       console.error(error);

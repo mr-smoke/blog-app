@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const signup = (req, res) => {
   const query = "SELECT * FROM users WHERE username = ?";
@@ -66,6 +67,16 @@ export const login = (req, res) => {
       return res.status(400).json("Invalid password");
     }
 
-    return res.status(200).json("User logged in");
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    const { password: userPassword, ...userWithoutPassword } = user;
+
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json(userWithoutPassword);
   });
 };
