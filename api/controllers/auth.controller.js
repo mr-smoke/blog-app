@@ -41,3 +41,31 @@ export const signup = (req, res) => {
     }
   });
 };
+
+export const login = (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json("Please fill all fields");
+  }
+
+  const query = "SELECT * FROM users WHERE username = ?";
+  db.query(query, [username], (error, results) => {
+    if (error) {
+      return res.status(400).json("An error occurred when login");
+    }
+    if (results.length === 0) {
+      return res.status(400).json("Username does not exist");
+    }
+
+    const user = results[0];
+
+    const validPassword = bcrypt.compareSync(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json("Invalid password");
+    }
+
+    return res.status(200).json("User logged in");
+  });
+};

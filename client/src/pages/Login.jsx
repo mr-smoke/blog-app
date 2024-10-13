@@ -1,10 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
+
+  const loginHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/auth/login", form);
+      toast.success(response.data);
+    } catch (error) {
+      toast.error(error.response.data);
+      console.error(error);
+    }
+  };
 
   return (
     <main className="flex items-center justify-center h-screen bg">
@@ -20,7 +33,7 @@ const Login = () => {
               type="text"
               id="username"
               maxLength={20}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -42,6 +55,7 @@ const Login = () => {
             <button
               className="border rounded-xl py-3 px-5 w-max hover:opacity-70"
               type="submit"
+              onClick={loginHandler}
             >
               Login
             </button>

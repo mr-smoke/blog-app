@@ -15,10 +15,7 @@ const Signup = () => {
   const signupHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        form
-      );
+      const response = await axios.post("/api/auth/signup", form);
       toast.success(response.data);
     } catch (error) {
       toast.error(error.response.data);
