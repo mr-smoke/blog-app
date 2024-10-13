@@ -8,8 +8,6 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
-  console.log(user);
-
   return (
     <nav className="flex items-center justify-between py-3 font-mono text-2xl px-3 lg:px-0">
       <div className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-violet-700 relative inline-block">

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddPost = () => {
+const AddBlog = () => {
   const [form, setForm] = useState({
     title: "",
     text: "",
@@ -97,4 +97,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default AddBlog;
