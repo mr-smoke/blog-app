@@ -1,8 +1,9 @@
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -11,7 +12,7 @@ const Login = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/login", form);
+      await login(form);
     } catch (error) {
       toast.error(error.response.data);
       console.error(error);

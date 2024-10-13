@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaBloggerB } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdClose, MdDehaze } from "react-icons/md";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const currentUser = undefined;
+  const { user } = useContext(AuthContext);
+
+  console.log(user);
 
   return (
     <nav className="flex items-center justify-between py-3 font-mono text-2xl px-3 lg:px-0">
@@ -46,10 +49,10 @@ const Navbar = () => {
       </div>
       <div className="md:flex md:text-2xl md:order-none items-center gap-5 font-semibold text-xl -order-1">
         <span className="flex flex-col items-center gap-1">
-          {currentUser ? (
+          {user ? (
             <>
               <img
-                src="https://randomuser.me/api/port"
+                src={user.image}
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
