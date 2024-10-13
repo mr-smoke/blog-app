@@ -1,6 +1,31 @@
+import { useContext, useEffect, useState } from "react";
 import { MdDelete, MdEditSquare } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 
 const Blog = () => {
+  const [blog, setBlog] = useState([]);
+  const { id } = useParams();
+  const { user } = useContext(AuthContext);
+  const isBlogOwner = user?.id === blog.userid;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/blog/${id}`);
+        setBlog(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (!blog) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="flex">
       <section className="w-3/4 p-3 flex flex-col gap-5">
@@ -19,10 +44,12 @@ const Blog = () => {
             <h2 className="font-bold text-lg">John Doe</h2>
             <p>May 12, 2024</p>
           </div>
-          <div className="flex pl-5 gap-5 text-2xl text-violet-700">
-            <MdEditSquare />
-            <MdDelete />
-          </div>
+          {isBlogOwner && (
+            <div className="flex pl-5 gap-5 text-2xl text-violet-700">
+              <MdEditSquare />
+              <MdDelete />
+            </div>
+          )}
         </div>
         <h1 className="text-4xl font-bold">Blog</h1>
         <p className="text-lg">

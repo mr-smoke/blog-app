@@ -3,14 +3,14 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const category = useLocation().search;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/blog${category}`);
-        setPosts(response.data);
+        setBlogs(response.data);
       } catch (error) {
         console.error(error);
       }
