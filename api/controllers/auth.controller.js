@@ -80,3 +80,10 @@ export const login = (req, res) => {
       .json(userWithoutPassword);
   });
 };
+
+export const logout = (req, res) => {
+  res
+    .clearCookie("token", { sameSite: "none", secure: true })
+    .status(200)
+    .json("Logged out");
+};

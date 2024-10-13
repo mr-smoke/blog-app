@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   console.log(user);
 
@@ -56,9 +56,7 @@ const Navbar = () => {
                 alt="profile"
                 className="w-10 h-10 rounded-full"
               />
-              <Link to="/logout">
-                <p>Logout</p>
-              </Link>
+              <button onClick={logout}>Logout</button>
             </>
           ) : (
             <Link to="/login">
