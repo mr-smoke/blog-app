@@ -1,14 +1,47 @@
 import { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import moment from "moment";
 
 const AddBlog = () => {
   const [form, setForm] = useState({
     title: "",
-    text: "",
     category: "",
-    status: "draft",
-    visibility: "public",
-    image: "",
+    image: null,
+    content: "",
   });
+
+  const uploadImage = async (e) => {
+    const file = form.image;
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      const response = await axios.post("/api/upload", formData);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const blogHandler = async (e) => {
+    e.preventDefault();
+    const imageUrl = await uploadImage();
+
+    try {
+      const response = await axios.post("/api/blog", {
+        ...form,
+        image: imageUrl,
+        date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      });
+      toast.success(response.data);
+      navigator.navigate("/");
+    } catch (error) {
+      toast.error(error.response.data);
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -22,10 +55,12 @@ const AddBlog = () => {
               className="p-3 border"
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
-            <textarea
-              placeholder="Write your post"
-              className="p-3 border"
-            ></textarea>
+            <ReactQuill
+              theme="snow"
+              value={form.content}
+              onChange={(value) => setForm({ ...form, content: value })}
+            />
+
             <button className="bg-violet-700 text-white px-5 py-2 w-max hover:bg-white hover:text-violet-700 hover:border">
               Publish
             </button>
@@ -79,14 +114,17 @@ const AddBlog = () => {
                 type="file"
                 id="image"
                 name="image"
-                onChange={(e) => setForm({ ...form, image: e.target.value })}
+                onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
               />
             </div>
             <div className="flex justify-between">
               <button className="p-2 bg-white text-violet-700 w-max hover:bg-violet-700 hover:text-white border">
                 Save draft
               </button>
-              <button className="p-2 bg-violet-700 text-white w-max hover:bg-white hover:text-violet-700 border">
+              <button
+                className="p-2 bg-violet-700 text-white w-max hover:bg-white hover:text-violet-700 border"
+                onClick={blogHandler}
+              >
                 Publish
               </button>
             </div>
