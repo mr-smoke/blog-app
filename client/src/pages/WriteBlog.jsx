@@ -45,6 +45,8 @@ const WriteBlog = () => {
             image: imageUrl,
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
+      toast.success("Blog published successfully");
+      window.location.replace(`/?category=${form.category}`);
     } catch (error) {
       toast.error(error.response.data);
       console.log(error);
@@ -52,14 +54,14 @@ const WriteBlog = () => {
   };
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 pb-10">
       {blog ? (
         <h1 className="text-4xl font-bold text-center p-5">Edit The Blog</h1>
       ) : (
         <h1 className="text-4xl font-bold text-center p-5">Write A Blog</h1>
       )}
-      <main className="flex">
-        <section className="w-3/4 px-3 flex flex-col gap-5">
+      <main className="flex flex-col md:flex-row gap-3">
+        <section className="flex flex-col gap-3 md:w-3/4 px-3 lg:px-0">
           <input
             type="text"
             placeholder="Title"
@@ -76,7 +78,7 @@ const WriteBlog = () => {
             />
           </div>
         </section>
-        <section className="flex flex-col gap-3 w-1/4">
+        <section className="flex flex-col gap-3 md:w-1/4 px-3 lg:px-0">
           <div className="flex flex-col gap-3 border p-3">
             <h1 className="text-2xl font-bold">Category</h1>
             <div className="flex gap-3">
@@ -131,11 +133,11 @@ const WriteBlog = () => {
               />
             </div>
             <div className="flex justify-between">
-              <button className="p-2 bg-white text-violet-700 w-max hover:bg-violet-700 hover:text-white border">
+              <button className="p-2 bg-white text-violet-700 w-max hover:bg-violet-700 hover:text-white border transition-colors">
                 Save draft
               </button>
               <button
-                className="p-2 bg-violet-700 text-white w-max hover:bg-white hover:text-violet-700 border"
+                className="p-2 bg-violet-700 text-white w-max hover:bg-white hover:text-violet-700 border transition-colors"
                 onClick={blogHandler}
               >
                 Publish

@@ -17,6 +17,7 @@ const Signup = () => {
     try {
       const response = await axios.post("/api/auth/signup", form);
       toast.success(response.data);
+      window.location.replace("/");
     } catch (error) {
       toast.error(error.response.data);
       console.error(error);

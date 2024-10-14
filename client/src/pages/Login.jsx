@@ -13,6 +13,8 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(form);
+      toast.success("Login successful");
+      window.location.replace("/");
     } catch (error) {
       toast.error(error.response.data);
       console.error(error);

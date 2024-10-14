@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import { createBrowserRouter } from "react-router-dom";
+import { ProtectedRoute, UnprotectedRoute } from "./NavigateRoute";
 
 const browserRouter = createBrowserRouter([
   {
@@ -17,7 +18,11 @@ const browserRouter = createBrowserRouter([
       },
       {
         path: "write",
-        element: <WriteBlog />,
+        element: (
+          <ProtectedRoute>
+            <WriteBlog />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "blog/:id",
@@ -27,11 +32,19 @@ const browserRouter = createBrowserRouter([
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: (
+      <UnprotectedRoute>
+        <Signup />
+      </UnprotectedRoute>
+    ),
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <UnprotectedRoute>
+        <Login />
+      </UnprotectedRoute>
+    ),
   },
 ]);
 

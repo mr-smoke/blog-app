@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import moment from "moment";
+import RecentBlogs from "../components/RecentBlogs";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
@@ -34,63 +36,51 @@ const Blog = () => {
     }
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   if (!blog) {
     return <div>Loading...</div>;
   }
 
+  console.log(blog);
+
   return (
-    <div className="flex-1">
-      <main className="flex">
-        <section className="w-3/4 p-3 flex flex-col gap-5">
+    <main className="flex flex-col md:flex-row gap-3 flex-1 pb-10 pt-5">
+      <section className="flex flex-col gap-3 md:w-3/4 px-3 lg:px-0">
+        <img
+          className="w-full max-h-[400px] object-cover"
+          src={`/uploads/${blog.blogImg}`}
+          alt={blog.title}
+        />
+        <div className="flex items-center gap-3">
           <img
-            className="w-full max-h-[400px] object-cover"
-            src="https://images.pexels.com/photos/28287993/pexels-photo-28287993/free-photo-of-sanayi-endustri-teknoloji-muzik.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="random"
+            className="w-14 h-14 rounded-full"
+            src={blog.userImg}
+            alt={blog.username}
           />
-          <div className="flex items-center gap-3">
-            <img
-              className="w-14 h-14 rounded-full"
-              src="https://images.pexels.com/photos/28287993/pexels-photo-28287993/free-photo-of-sanayi-endustri-teknoloji-muzik.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="profile"
-            />
-            <div>
-              <h2 className="font-bold text-lg">John Doe</h2>
-              <p>May 12, 2024</p>
+          <div>
+            <h2 className="font-bold text-lg">{blog.username}</h2>
+            <p>{moment(blog.date).fromNow()}</p>
+          </div>
+          {isBlogOwner && (
+            <div className="flex pl-5 gap-5 text-2xl text-gray-300">
+              <Link to={`/write?edit=${id}`} state={blog}>
+                <MdEditSquare />
+              </Link>
+              <MdDelete onClick={deleteHandler} />
             </div>
-            {isBlogOwner && (
-              <div className="flex pl-5 gap-5 text-2xl text-violet-700">
-                <Link to={`/write?edit=${id}`} state={blog}>
-                  <MdEditSquare />
-                </Link>
-                <MdDelete onClick={deleteHandler} />
-              </div>
-            )}
-          </div>
-          <h1 className="text-4xl font-bold">Blog</h1>
-          <p className="text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            quia, voluptatem, voluptas, quos asperiores cumque quae nemo
-            doloremque voluptatibus quidem tempora. Quisquam quia, voluptatem,
-            voluptas, quos asperiores cumque quae nemo doloremque voluptatibus
-            quidem tempora.
-          </p>
-        </section>
-        <section className="flex flex-col gap-3 w-1/4">
-          <h2 className="text-xl font-bold">Recent Posts</h2>
-          <div className="flex flex-col gap-3 border p-3">
-            <img
-              className="w-full "
-              src="https://images.pexels.com/photos/28287993/pexels-photo-28287993/free-photo-of-sanayi-endustri-teknoloji-muzik.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="profile"
-            />
-            <h3 className="font-bold text-3xl text-gray-600">John Doe</h3>
-            <button className="bg-violet-700 text-white px-3 py-1 w-max hover:bg-white hover:text-violet-700 hover:border">
-              Read More
-            </button>
-          </div>
-        </section>
-      </main>
-    </div>
+          )}
+        </div>
+        <h1 className="text-4xl font-bold">{blog.title}</h1>
+        <p className="text-lg">{getText(blog.content)}</p>
+      </section>
+      <section className="flex flex-col gap-3 md:w-1/4 px-3 lg:px-0">
+        <RecentBlogs category={blog.category} />
+      </section>
+    </main>
   );
 };
 
