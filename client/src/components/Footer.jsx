@@ -1,9 +1,8 @@
 import { FaBloggerB, FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="absolute bottom-0 p-3 w-full h-24 bg-violet-700 flex justify-between items-center flex-col md:flex-row">
+    <footer className="p-3 w-full gap-4 min-h-24 bg-violet-700 flex justify-between items-center flex-col md:flex-row">
       <div className="flex items-center justify-center gap-3 font-mono text-lg text-white">
         <p>©2024 Blogger made by</p>
         <a href="github.com">

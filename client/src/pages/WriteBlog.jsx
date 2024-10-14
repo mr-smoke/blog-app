@@ -4,16 +4,24 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { useLocation } from "react-router-dom";
 
-const AddBlog = () => {
+const WriteBlog = () => {
+  const blog = useLocation().state;
   const [form, setForm] = useState({
-    title: "",
-    category: "",
-    image: null,
-    content: "",
+    title: blog?.title || "",
+    category: blog?.category || "",
+    image: blog?.blogImg || "",
+    content: blog?.content || "",
   });
 
   const uploadImage = async (e) => {
+    if (!form.image) {
+      return;
+    }
+    if (blog?.blogImg === form.image) {
+      return blog.blogImg;
+    }
     const file = form.image;
     const formData = new FormData();
     formData.append("image", file);
@@ -30,13 +38,13 @@ const AddBlog = () => {
     const imageUrl = await uploadImage();
 
     try {
-      const response = await axios.post("/api/blog", {
-        ...form,
-        image: imageUrl,
-        date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-      });
-      toast.success(response.data);
-      navigator.navigate("/");
+      blog
+        ? await axios.put(`/api/blog/${blog.id}`, { ...form, image: imageUrl })
+        : await axios.post("/api/blog", {
+            ...form,
+            image: imageUrl,
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          });
     } catch (error) {
       toast.error(error.response.data);
       console.log(error);
@@ -44,26 +52,28 @@ const AddBlog = () => {
   };
 
   return (
-    <>
-      <h1 className="text-4xl font-bold pb-5">Add Post</h1>
+    <div className="flex-1">
+      {blog ? (
+        <h1 className="text-4xl font-bold text-center p-5">Edit The Blog</h1>
+      ) : (
+        <h1 className="text-4xl font-bold text-center p-5">Write A Blog</h1>
+      )}
       <main className="flex">
         <section className="w-3/4 px-3 flex flex-col gap-5">
-          <div className="flex flex-col gap-5">
-            <input
-              type="text"
-              placeholder="Title"
-              className="p-3 border"
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-            />
+          <input
+            type="text"
+            placeholder="Title"
+            className="p-3 border"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
+          <div className="flex h-full">
             <ReactQuill
+              className="h-full w-full"
               theme="snow"
               value={form.content}
               onChange={(value) => setForm({ ...form, content: value })}
             />
-
-            <button className="bg-violet-700 text-white px-5 py-2 w-max hover:bg-white hover:text-violet-700 hover:border">
-              Publish
-            </button>
           </div>
         </section>
         <section className="flex flex-col gap-3 w-1/4">
@@ -76,6 +86,18 @@ const AddBlog = () => {
                 name="category"
                 id="art"
                 value="art"
+                checked={form.category === "art"}
+                onChange={(e) => setForm({ ...form, category: e.target.value })}
+              />
+            </div>
+            <div className="flex gap-3">
+              <label htmlFor="science">Science</label>
+              <input
+                type="radio"
+                name="category"
+                id="science"
+                value="science"
+                checked={form.category === "science"}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
               />
             </div>
@@ -86,16 +108,7 @@ const AddBlog = () => {
                 name="category"
                 id="technology"
                 value="technology"
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-              />
-            </div>
-            <div className="flex gap-3">
-              <label htmlFor="travel">Travel</label>
-              <input
-                type="radio"
-                name="category"
-                id="travel"
-                value="travel"
+                checked={form.category === "technology"}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
               />
             </div>
@@ -103,7 +116,7 @@ const AddBlog = () => {
           <div className="flex flex-col gap-3 border p-3">
             <h1 className="text-2xl font-bold">Publish</h1>
             <p>
-              <b>Status:</b> Draft
+              <b>Status:</b> {blog ? "Published" : "Draft"}
             </p>
             <p>
               <b>Status:</b> Public
@@ -131,8 +144,8 @@ const AddBlog = () => {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 };
 
-export default AddBlog;
+export default WriteBlog;

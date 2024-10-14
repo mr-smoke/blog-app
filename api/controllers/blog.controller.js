@@ -78,3 +78,33 @@ export const addBlog = async (req, res) => {
     });
   });
 };
+
+export const editBlog = async (req, res) => {
+  const { title, content, category, image } = req.body;
+
+  if (!title || !content || !category || !image) {
+    return res.status(400).json("Please fill in all fields");
+  }
+
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json("Unauthorized");
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (error, user) => {
+    if (error) {
+      return res.status(401).json("Token is not valid");
+    }
+
+    const query =
+      "UPDATE blogs SET `title` = ?, `content` = ?, `category` = ?, `image` = ? WHERE `id` = ? AND `userid` = ?";
+    const values = [title, content, category, image, req.params.id, user.id];
+    db.query(query, values, (error, result) => {
+      if (error) {
+        return res.status(500).json("Internal server error");
+      }
+      return res.status(200).json("Blog updated successfully");
+    });
+  });
+};

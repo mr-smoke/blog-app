@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { FaBloggerB } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MdClose, MdDehaze } from "react-icons/md";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+  const active = new URLSearchParams(useLocation().search).get("category");
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
 
@@ -23,20 +24,43 @@ const Navbar = () => {
       </div>
       <div
         className={`${
-          menuOpen ? "translate-x-0" : "w-0 invisible p-0 md:visible"
-        } flex gap-5 md:relative md:flex-row md:p-0 md:items-start md:h-auto md:w-auto md:bg-white md:text-black md:translate-x-0 fixed top-0 right-0 flex-col items-end p-3 h-screen w-1/2 bg-violet-700 text-white translate-x-full transition-all z-20`}
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        } flex gap-5 md:relative md:flex-row md:p-0 md:items-start md:h-auto md:w-auto md:bg-white md:text-black md:translate-x-0 fixed top-0 right-0 flex-col items-end p-3 h-screen w-1/2 bg-violet-700 text-white transition-transform duration-300 z-20`}
       >
         <div className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
           <MdClose size={30} />
         </div>
-        <Link to="/art">
-          <p className="before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-300 hover:before:translate-x-0 hover:before:opacity-100">
+        <Link to="/?category=art">
+          <p
+            className={`before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-300 hover:before:translate-x-0 hover:before:opacity-100 ${
+              active === "art"
+                ? "md:before:translate-x-0 md:before:opacity-100"
+                : ""
+            }`}
+          >
             Art
           </p>
         </Link>
-        <Link to="/science">
-          <p className="before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-500 hover:before:translate-x-0 hover:before:opacity-100">
+        <Link to="/?category=science">
+          <p
+            className={`before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-300 hover:before:translate-x-0 hover:before:opacity-100 ${
+              active === "science"
+                ? "md:before:translate-x-0 md:before:opacity-100"
+                : ""
+            }`}
+          >
             Science
+          </p>
+        </Link>
+        <Link to="/?category=technology">
+          <p
+            className={`before:absolute before:pointer-events-none before:w-full before:h-0.5 before:-bottom-1 before:left-0 before:bg-violet-700 before:translate-x-[-100%] before:opacity-0 relative before:transition-all before:duration-300 hover:before:translate-x-0 hover:before:opacity-100 ${
+              active === "technology"
+                ? "md:before:translate-x-0 md:before:opacity-100"
+                : ""
+            }`}
+          >
+            Technology
           </p>
         </Link>
         <Link to="/write">

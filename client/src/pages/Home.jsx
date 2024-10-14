@@ -19,7 +19,7 @@ const Home = () => {
   }, [category]);
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col flex-1">
       <section className="flex flex-col md:flex-row pb-16 md:py-16">
         <div className="flex flex-col gap-8 md:w-2/3 p-3 md:pr-16">
           <h2 className="text-5xl leading-tight font-bold">
