@@ -3,6 +3,7 @@ import { MdDelete, MdEditSquare } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
@@ -21,6 +22,17 @@ const Blog = () => {
     };
     fetchData();
   }, [id]);
+
+  const deleteHandler = async () => {
+    try {
+      await axios.delete(`/api/blog/${id}`);
+      toast.success("Blog deleted successfully");
+      window.location.replace("/");
+    } catch (error) {
+      toast.error(error.response.data);
+      console.error(error);
+    }
+  };
 
   if (!blog) {
     return <div>Loading...</div>;
@@ -47,7 +59,7 @@ const Blog = () => {
           {isBlogOwner && (
             <div className="flex pl-5 gap-5 text-2xl text-violet-700">
               <MdEditSquare />
-              <MdDelete />
+              <MdDelete onClick={deleteHandler} />
             </div>
           )}
         </div>
