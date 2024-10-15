@@ -32,7 +32,7 @@ export const signup = (req, res) => {
 
       const query =
         "INSERT INTO users(`username`, `name`, `password`, `gender`, `image`)  VALUES (?)";
-      const user = [name, username, hashedPassword, gender, image];
+      const user = [username, name, hashedPassword, gender, image];
       db.query(query, [user], (error, results) => {
         if (error) {
           return res.status(400).json("User not created, please try again");

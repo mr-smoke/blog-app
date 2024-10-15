@@ -37,7 +37,7 @@ const Signup = () => {
               className="border rounded-lg p-3 text-black"
               type="text"
               id="name"
-              maxLength={20}
+              maxLength={45}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
           </div>
@@ -57,6 +57,7 @@ const Signup = () => {
               className="border rounded-lg p-3 text-black"
               type="password"
               id="password"
+              maxLength={90}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
@@ -66,6 +67,7 @@ const Signup = () => {
               className="border rounded-lg p-3 text-black"
               type="password"
               id="confirmPassword"
+              maxLength={90}
               onChange={(e) =>
                 setForm({ ...form, confirmPassword: e.target.value })
               }

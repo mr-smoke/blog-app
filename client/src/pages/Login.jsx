@@ -34,7 +34,7 @@ const Login = () => {
               className="border rounded-lg p-3 text-black"
               type="text"
               id="username"
-              maxLength={20}
+              maxLength={45}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
           </div>
@@ -44,6 +44,7 @@ const Login = () => {
               className="border rounded-lg p-3 text-black"
               type="password"
               id="password"
+              maxLength={90}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>

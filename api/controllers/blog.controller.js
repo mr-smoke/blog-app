@@ -1,10 +1,9 @@
 import { db } from "../db.js";
 import jwt from "jsonwebtoken";
-
 export const getBlogs = async (req, res) => {
   const query = req.query.category
-    ? "SELECT * FROM blogs WHERE category = ?"
-    : "SELECT * FROM blogs";
+    ? "SELECT * FROM blogs WHERE category = ? ORDER BY date DESC"
+    : "SELECT * FROM blogs ORDER BY date DESC";
 
   db.query(query, [req.query.category], (error, result) => {
     if (error) {

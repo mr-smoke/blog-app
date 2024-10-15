@@ -66,6 +66,7 @@ const WriteBlog = () => {
             type="text"
             placeholder="Title"
             className="p-3 border"
+            maxLength={45}
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />

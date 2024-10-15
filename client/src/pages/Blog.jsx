@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import moment from "moment";
 import RecentBlogs from "../components/RecentBlogs";
+import DOMPurify from "dompurify";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
@@ -45,13 +46,11 @@ const Blog = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(blog);
-
   return (
     <main className="flex flex-col md:flex-row gap-3 flex-1 pb-10 pt-5">
       <section className="flex flex-col gap-3 md:w-3/4 px-3 lg:px-0">
         <img
-          className="w-full max-h-[400px] object-cover"
+          className="w-full max-h-96 object-cover"
           src={`/uploads/${blog.blogImg}`}
           alt={blog.title}
         />
@@ -75,7 +74,13 @@ const Blog = () => {
           )}
         </div>
         <h1 className="text-4xl font-bold">{blog.title}</h1>
-        <p className="text-lg">{getText(blog.content)}</p>
+        <p className="text-lg">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blog.content),
+            }}
+          />
+        </p>
       </section>
       <section className="flex flex-col gap-3 md:w-1/4 px-3 lg:px-0">
         <RecentBlogs category={blog.category} />
