@@ -20,11 +20,11 @@ A full-stack blog application built with React, MySQL, Express.js and Tailwind C
 
 ### Larger Devices
 
-![Gif](https://i.ibb.co/WgG5x2G/blog-app.gif)
+<a href="https://ibb.co/cDk3grk"><img src="https://i.ibb.co/HnB4FHB/blog-app.gif" alt="blog-app" border="0" /></a>
 
 ### Smaller Devices
 
-![MobileGif](https://i.ibb.co/8DrZ6Lc/mobile-blog-app.gif)
+<a href="https://ibb.co/d0PYGwg"><img src="https://i.ibb.co/Kj2vFpw/mobile-blog-app.gif" alt="mobile-blog-app" border="0" /></a>
 
 ### Key Use Cases:
 
@@ -110,8 +110,7 @@ To use the blog app, follow these steps:
 ## Features
 
 - **Authentication**: Secure login and session management using JSON Web Tokens (JWT). Includes login, logout, and registration functionality.
-- **User Management**: Create, edit, and delete blog posts. Categorize blogs and filter them based on categories.
-- **Blog Management**: Create, edit, and delete blog posts.
+- **Blog Management**: Create, edit, and delete blog posts. Categorize blogs and filter them based on categories.
 - **Image Upload**: Upload images to blogs using the Multer package, allowing users to enhance their posts with visual content.
 - **Rich Text Editor**: Use a rich text editor for creating and editing blog content, providing a better writing experience.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
