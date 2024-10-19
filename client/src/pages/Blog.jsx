@@ -65,11 +65,11 @@ const Blog = () => {
             <p>{moment(blog.date).fromNow()}</p>
           </div>
           {isBlogOwner && (
-            <div className="flex pl-5 gap-5 text-2xl text-gray-300">
+            <div className="flex pl-5 gap-5 text-2xl text-violet-700">
               <Link to={`/write?edit=${id}`} state={blog}>
                 <MdEditSquare />
               </Link>
-              <MdDelete onClick={deleteHandler} />
+              <MdDelete className="cursor-pointer" onClick={deleteHandler} />
             </div>
           )}
         </div>
@@ -83,7 +83,7 @@ const Blog = () => {
         </p>
       </section>
       <section className="flex flex-col gap-3 md:w-1/4 px-3 lg:px-0">
-        <RecentBlogs category={blog.category} />
+        <RecentBlogs category={blog.category} blogId={blog.id} />
       </section>
     </main>
   );

@@ -37,9 +37,13 @@ const Home = () => {
                 }}
               />
             </p>
-            <button className="bg-violet-700 text-white px-5 py-2 w-max hover:bg-white hover:text-violet-700 border transition-colors">
-              <Link to={`/blog/${blog.id}`}>Read More</Link>
-            </button>
+            <div>
+              <Link to={`/blog/${blog.id}`}>
+                <button className="bg-violet-700 text-white px-5 py-2 w-max hover:bg-white hover:text-violet-700 border transition-colors">
+                  Read More
+                </button>
+              </Link>
+            </div>
           </div>
           <div className="md:w-1/3 p-3 flex items-center">
             <span className="w-full relative after:absolute after:top-5 after:-left-5 after:w-full after:h-full after:z-[-1] after:bg-violet-700">

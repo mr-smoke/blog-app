@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="p-3 w-full gap-4 min-h-24 bg-violet-700 flex justify-between items-center flex-col md:flex-row">
       <div className="flex items-center justify-center gap-3 font-mono text-lg text-white">
         <p>©2024 Blogger made by</p>
-        <a href="github.com">
+        <a target="_blank" href="https://github.com/mr-smoke">
           <FaGithub />
         </a>
       </div>
