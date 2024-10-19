@@ -20,11 +20,11 @@ A full-stack blog application built with React, MySQL, Express.js and Tailwind C
 
 ### Larger Devices
 
-<img src="https://i.ibb.co/WgG5x2G/blog-app.gif" alt="blog-app" border="0" />
+![Gif](api/gifs/blog-app.gif)
 
 ### Smaller Devices
 
-<img src="https://i.ibb.co/8DrZ6Lc/mobile-blog-app.gif" alt="mobile-blog-app" border="0" />
+![MobileGif](api/gifs/mobile-blog-app.gif)
 
 ### Key Use Cases:
 
